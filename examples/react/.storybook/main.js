@@ -1,10 +1,9 @@
-module.exports = {
-  "stories": [
-    "../stories/**/*.stories.mdx",
-    "../stories/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
-  "addons": [
-    "@storybook/addon-essentials",
+/** @type {import('@storybook/react-webpack5').StorybookConfig} */
+const config = {
+  stories: ["../stories/**/*.stories.@(js|jsx|ts|tsx)"],
+  addons: [
+    "@storybook/addon-webpack5-compiler-swc",
+    "@storybook/addon-docs",
 
     // Basic addon initialization
     "storybook-css-modules",
@@ -22,5 +21,10 @@ module.exports = {
     //   },
     // },
   ],
-  "framework": "@storybook/react"
-}
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+};
+
+export default config;

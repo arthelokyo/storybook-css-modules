@@ -1,14 +1,15 @@
 {
   "name": "storybook-css-modules",
-  "version": "1.0.8",
-  "description": "Storybook CSS Modules preset",
+  "version": "2.0.0",
+  "description": "Storybook preset to add CSS Modules support to webpack based Storybook frameworks",
   "author": {
-    "name": "onWidget",
-    "email": "contact@onwidget.com",
-    "url": "https://github.com/onwidget"
+    "name": "Arthelokyo",
+    "email": "hello@arthelokyo.com",
+    "url": "https://github.com/arthelokyo"
   },
   "license": "MIT",
   "keywords": [
+    "storybook-addon",
     "storybook-addons",
     "style",
     "code",
@@ -22,41 +23,55 @@
   ],
   "homepage": "https://storybook.js.org/addons/storybook-css-modules",
   "bugs": {
-    "url": "https://github.com/onwidget/storybook-css-modules/issues"
+    "url": "https://github.com/arthelokyo/storybook-css-modules/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/onwidget/storybook-css-modules.git"
+    "url": "https://github.com/arthelokyo/storybook-css-modules.git"
+  },
+  "type": "module",
+  "main": "./dist/preset.cjs",
+  "exports": {
+    ".": {
+      "import": "./dist/preset.js",
+      "require": "./dist/preset.cjs"
+    },
+    "./preset": {
+      "import": "./dist/preset.js",
+      "require": "./dist/preset.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist/**/*",
     "README.md"
   ],
-  "main": "dist/index.js",
   "scripts": {
-    "build": "npm run clean && babel ./src --ignore '**/*.test.js' --out-dir ./dist",
-    "watch": "npm run clean && babel --watch ./src --ignore '**/*.test.js' --out-dir ./dist",
-    "clean": "rm -rf dist",
-    "prepublish": "npm run build",
-    "storybook": "start-storybook -c ./examples/react/.storybook",
-    "build-storybook": "build-storybook -c ./examples/react/.storybook"
+    "build": "tsup src/preset.js --format esm,cjs --platform node --target node18 --clean",
+    "watch": "npm run build -- --watch",
+    "clean": "node -e \"fs.rmSync('./dist', { recursive: true, force: true })\"",
+    "prepublishOnly": "npm run build",
+    "test:compat": "node scripts/compat-test.mjs",
+    "storybook": "npm --prefix examples/react run storybook",
+    "build-storybook": "npm --prefix examples/react run build-storybook"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.14.2",
-    "@babel/preset-env": "^7.14.2",
-    "@storybook/react": "^6.4.22",
-    "babel-loader": "^8.2.5",
-    "react": "^16.8.0 || ^17.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0"
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "storybook": ">=6.5.0"
+  },
+  "peerDependenciesMeta": {
+    "storybook": {
+      "optional": true
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "storybook": {
     "displayName": "Storybook CSS Modules",
@@ -66,6 +81,6 @@
       "preact",
       "vue"
     ],
-    "icon": "https://raw.githubusercontent.com/onwidget/storybook-css-modules/main/logo-css-modules.png"
+    "icon": "https://raw.githubusercontent.com/arthelokyo/storybook-css-modules/main/logo-css-modules.png"
   }
 }
