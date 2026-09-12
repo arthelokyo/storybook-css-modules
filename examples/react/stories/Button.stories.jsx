@@ -1,43 +1,24 @@
-import React from 'react';
+import { Button } from "./Button.jsx";
 
-import { Button } from './Button';
-
-// More on default export: https://storybook.js.org/docs/preact/writing-stories/introduction#default-export
 export default {
-  title: 'Example/Button',
+  title: "Example/Button",
   component: Button,
-  // More on argTypes: https://storybook.js.org/docs/preact/api/argtypes
   argTypes: {
-    primary: { control: "boolean", default: false }, 
-    size: { control: "select", options: ['medium', 'small', 'large'], default: "medium" },
-    backgroundColor: { control: 'color' },
-    onClick: { action: 'onClick' },
+    primary: { control: "boolean" },
+    size: { control: "select", options: ["small", "medium", "large"] },
+    backgroundColor: { control: "color" },
+    onClick: { action: "onClick" },
+  },
+  args: {
+    label: "Button",
+    size: "medium",
   },
 };
 
-// More on component templates: https://storybook.js.org/docs/preact/writing-stories/introduction#using-args
-const Template = (args) => <Button {...args} />;
+export const Primary = { args: { primary: true } };
 
-export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/preact/writing-stories/args
-Primary.args = {
-  primary: true,
-  label: 'Button',
-};
+export const Secondary = {};
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Button',
-};
+export const Large = { args: { size: "large" } };
 
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Button',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Button',
-};
+export const Small = { args: { size: "small" } };
